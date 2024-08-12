@@ -16,15 +16,21 @@ namespace TestChat
         [SerializeField]
         private MessageView _messageView;
         [SerializeField]
+        private MessageView _answerMessageView;
+        [SerializeField]
         private Transform _content;
+        
+        
+        private string _myID = "0";//delete later
 
+        
         private readonly List<MessageView> _messageViews = new();
-
         public void ApplyMessages(List<MessageModel> messageModels)
         {
             foreach (var messageModel in messageModels)
             {
-                var view = Instantiate(_messageView, _content);
+                MessageView view;
+                view = Instantiate(messageModel.UserID == _myID ? _messageView : _answerMessageView, _content);
                 view.ApplyMessage(messageModel, false);
                 _messageViews.Add(view);
             } 

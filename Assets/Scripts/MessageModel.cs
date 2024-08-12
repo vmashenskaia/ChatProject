@@ -9,14 +9,16 @@ namespace TestChat
         public string Nickname { get; }
         public DateTime Time { get; }
         public string MessageID { get; }
+        public string UserID { get; }
 
-        public MessageModel(string avatarPath, string message, string nickname, DateTime time, string messageID)
+        public MessageModel(string avatarPath, string message, string nickname, DateTime time, string messageID, string userID)
         {
             AvatarPath = avatarPath;
             Message = message;
             Nickname = nickname;
             Time = time;
             MessageID = messageID;
+            UserID = userID;
         }
     }
 }
