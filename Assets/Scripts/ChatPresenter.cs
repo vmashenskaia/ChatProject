@@ -5,11 +5,11 @@ namespace TestChat
 {
     public class ChatPresenter
     {
-        private ChatView _view;
+        private MessageScreenView _view;
         
         public void LoadAndShowWindow(List<MessageModel> messages)
         {
-            _view = GameObject.FindFirstObjectByType<ChatView>();
+            _view = GameObject.FindFirstObjectByType<MessageScreenView>();
             _view.ApplyMessages(messages);
         }
     }

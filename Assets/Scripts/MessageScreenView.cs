@@ -5,7 +5,7 @@ using Button = UnityEngine.UI.Button;
 
 namespace TestChat
 {
-    public class ChatView : MonoBehaviour
+    public class MessageScreenView : MonoBehaviour
     {
         [SerializeField]
         private Button _sendButton;

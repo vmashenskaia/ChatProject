@@ -1,0 +1,11 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!49 &4900000
+TextAsset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: messages
+  m_Script: '{"messages":[{"MessageID":"666","Nickname":"nickname","Message":"Go
+    to hell","Time":"2018-08-18T07:22:16","Avatar":"ava","UserID":"11"},{"MessageID":"1","Nickname":"jlfd","Message":"sdf","Time":"2018-08-18T07:22:16","Avatar":"121","UserID":"22"}]}'
