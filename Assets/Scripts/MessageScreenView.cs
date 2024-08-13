@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using Button = UnityEngine.UI.Button;
 
@@ -20,11 +22,22 @@ namespace TestChat
         [SerializeField]
         private Transform _content;
         
+        private readonly List<MessageView> _messageViews = new();
         
         private string _myID = "0";//delete later
 
-        
-        private readonly List<MessageView> _messageViews = new();
+        public event Action<string> OnMessageSended;
+
+        private void OnEnable()
+        {
+            _sendButton.onClick.AddListener(OnSendButtonClickHandler);
+        }
+
+        private void OnDisable()
+        {
+            _sendButton.onClick.RemoveListener(OnSendButtonClickHandler);
+        }
+
         public void ApplyMessages(List<MessageModel> messageModels)
         {
             foreach (var messageModel in messageModels)
@@ -34,6 +47,20 @@ namespace TestChat
                 view.ApplyMessage(messageModel, false);
                 _messageViews.Add(view);
             } 
+        }
+
+        public void AddMessage(MessageModel messageModel)
+        {
+            MessageView view;
+            view = Instantiate(messageModel.UserID == _myID ? _messageView : _answerMessageView, _content);
+            view.ApplyMessage(messageModel, false);
+            _messageViews.Add(view);
+        }
+
+        private void OnSendButtonClickHandler()
+        {
+            OnMessageSended?.Invoke(_inputField.text);
+            _inputField.text = "";
         }
     }
 }

@@ -1,32 +1,52 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using GoogleSpreadsheets;
-using Newtonsoft.Json;
+using System.Threading;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
+using Random = UnityEngine.Random;
 
 namespace TestChat
 {
     public class ApplicationController: MonoBehaviour
     {
-        private void Start()
+        private List<MessageModel> _messageModels = new();
+        private ChatService _chatService = new();
+        
+        private string _myID = "0";//delete later
+
+        private void OnEnable()
         {
-            var messages = ImportMessages();
-            new ChatPresenter().LoadAndShowWindow(messages.OrderByDescending(m => m.Time).ToList());
+            _chatService.OnMessageAdded += OnMessageAddedHandler;
         }
 
-        private List<MessageModel> ImportMessages()
+        private void OnDisable()
         {
-            var textAsset = Resources.Load<TextAsset>("messages");
-            var chatContent = JsonConvert.DeserializeObject<ChatContent>(textAsset.text);
-            var messages = new List<MessageModel>();
-            foreach (var message in chatContent.messages)
-            {
-                var messageModel = new MessageModel(message.Avatar, message.Message, message.Nickname, message.Time, message.MessageID, message.UserID);
-                messages.Add(messageModel);
-            }
+            _chatService.OnMessageAdded -= OnMessageAddedHandler;
+        }
 
-            return messages;
+        private void Start()
+        {
+            _chatService.ImportMessages();
+            _messageModels = _chatService.GetAllMessages();
+            //new MessageScreenPresenter().LoadAndShowWindow(messages.OrderByDescending(m => m.Time).ToList());
+            new MessageScreenPresenter(_chatService).LoadAndShowWindow(_messageModels);
+        }
+
+
+        private void OnMessageAddedHandler(MessageModel messageModel)
+        {
+            if (messageModel.UserID == _myID)
+                AddMessage(destroyCancellationToken).Forget();
+        }
+
+        private async UniTask AddMessage(CancellationToken token)
+        {  
+            var randomAmount = Random.Range(1, 7);
+            for (int i = 0; i < randomAmount  ; ++i)
+            {
+                await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+               _chatService.AddNewMessage(_chatService.GetRandomAnswer()); 
+            }
         }
     }
 }
