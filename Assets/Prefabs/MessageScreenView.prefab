@@ -351,8 +351,8 @@ MonoBehaviour:
   _sendButton: {fileID: 3678862851308520732}
   _deleteModeButton: {fileID: 8971717010170782596}
   _inputField: {fileID: 1213418548814362537}
-  _messageView: {fileID: 2143804486023100865, guid: 443e149b24a634bb68cdb69b65466582, type: 3}
-  _answerMessageView: {fileID: 6729326545273864249, guid: d928554d082544699b7f0d31d28d5973, type: 3}
+  _messageViewPrefab: {fileID: 2143804486023100865, guid: 443e149b24a634bb68cdb69b65466582, type: 3}
+  _answerMessageViewPrefab: {fileID: 6729326545273864249, guid: d928554d082544699b7f0d31d28d5973, type: 3}
   _content: {fileID: 2585143979121556138}
 --- !u!1 &3043880486967551127
 GameObject:

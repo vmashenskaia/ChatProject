@@ -10,6 +10,7 @@ namespace TestChat
     {
         private MessageScreenView _view;
         private ChatService _chatService;
+        private bool _isDeletingMode;
         
         private string _myID = "0";//delete later
         private string _myNickname = "Viktoria";
@@ -22,9 +23,12 @@ namespace TestChat
         public void LoadAndShowWindow(List<MessageModel> messages)
         {
             _view = GameObject.FindFirstObjectByType<MessageScreenView>();
-            _view.ApplyMessages(messages);
+            _view.ApplyMessages(messages, false);
             _view.OnMessageSended += OnMessageSendedHandler;
             _chatService.OnMessageAdded += OnMessageAddedHandler;
+            _view.OnDeleteModeChange += OnDeleteModeChangeHandler;
+            _view.OnDeleteViewMessage += OnViewDeleteViewMessageHandler;
+            _chatService.OnMessageDeleted += OnMessageDeletedHandler;
         }
         
 
@@ -40,13 +44,29 @@ namespace TestChat
             _view.AddMessage(messageModel);
         }
 
-        //private async Unitask AddMessage(string text, CancellationToken token)
-        //{
-        //}
+        private void OnDeleteModeChangeHandler(bool isDeletingMode)
+        {
+            _isDeletingMode = !isDeletingMode;
+            _view.ChangeDeleteMode(_isDeletingMode);
+        }
+
+        private void OnViewDeleteViewMessageHandler(MessageModel messageModel)
+        {
+            _chatService.DeleteMessage(messageModel.MessageID);
+        }
+
+        private void OnMessageDeletedHandler(string messageID)
+        {
+            _view.DeleteMessage(messageID);
+        }
+
         public void Dispose()
         {
             _view.OnMessageSended -= OnMessageSendedHandler;
             _chatService.OnMessageAdded -= OnMessageAddedHandler;
+            _view.OnDeleteModeChange -= OnDeleteModeChangeHandler;
+            _view.OnDeleteViewMessage -= OnViewDeleteViewMessageHandler;
+            _chatService.OnMessageDeleted -= OnMessageDeletedHandler;
         }
     }
 }

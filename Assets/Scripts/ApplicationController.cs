@@ -28,8 +28,8 @@ namespace TestChat
         {
             _chatService.ImportMessages();
             _messageModels = _chatService.GetAllMessages();
-            //new MessageScreenPresenter().LoadAndShowWindow(messages.OrderByDescending(m => m.Time).ToList());
-            new MessageScreenPresenter(_chatService).LoadAndShowWindow(_messageModels);
+            var presenter = new MessageScreenPresenter(_chatService);
+            presenter.LoadAndShowWindow(_messageModels);
         }
 
 
