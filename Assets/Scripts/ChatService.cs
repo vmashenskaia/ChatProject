@@ -22,15 +22,24 @@ namespace TestChat
 
         public void ImportMessages()
         {
-            var textAsset = Resources.Load<TextAsset>("messages");
-            var chatContent = JsonConvert.DeserializeObject<ChatContent>(textAsset.text);
-            foreach (var message in chatContent.messages)
+            var loadedMessages = LoadMessages();
+            foreach (var message in loadedMessages)
             {
-                var messageModel = new MessageModel(message.Avatar, message.Message, message.Nickname, message.Time, message.MessageID, message.UserID);
-                _answers.Add(messageModel);
+                _answers.Add(new MessageModel(message.Avatar, message.Message, message.Nickname, message.Time,
+                    message.MessageID, message.UserID));
             }
-                _history.Add(_answers[UnityEngine.Random.Range(0, _answers.Count)]);
+            _history.Add(_answers[UnityEngine.Random.Range(0, _answers.Count)]);
         }
+
+        public List<MessageInfo> LoadMessages()
+        {
+            var textAsset = Resources.Load<TextAsset>("messages");
+            if (textAsset == null)
+                return new List<MessageInfo>();
+            var chatContent = JsonConvert.DeserializeObject<ChatContent>(textAsset.text);
+            return chatContent.messages;
+        }
+        
 
         public void AddNewMessage(MessageModel messageModel)
         {
@@ -43,7 +52,7 @@ namespace TestChat
             
             var randomAnswer = _answers[UnityEngine.Random.Range(0, _answers.Count)];
             MessageModel messageModel = new MessageModel(randomAnswer.AvatarPath, randomAnswer.Message,
-                randomAnswer.Nickname, DateTime.Now, Guid.NewGuid().ToString(), randomAnswer.UserID);
+                randomAnswer.Nickname, DateTime.Now.ToString(), Guid.NewGuid().ToString(), randomAnswer.UserID);
 
             return messageModel;
         }

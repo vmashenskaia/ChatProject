@@ -27,7 +27,7 @@ namespace GoogleSpreadsheets
                         messageInfo.Message = element.ToString();
                         break;
                     case "Time":
-                        messageInfo.Time = DateTime.Parse(element.ToString());
+                        messageInfo.Time = element.ToString();
                         break;
                     case "Avatar":
                         messageInfo.Avatar = element.ToString();

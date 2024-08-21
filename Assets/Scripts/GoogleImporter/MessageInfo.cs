@@ -7,7 +7,7 @@ namespace GoogleSpreadsheets
         public string MessageID;
         public string Nickname;
         public string Message;
-        public DateTime Time;
+        public string Time;
         public string Avatar;
         public string UserID;
     }

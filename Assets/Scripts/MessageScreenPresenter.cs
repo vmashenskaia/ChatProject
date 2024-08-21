@@ -34,7 +34,7 @@ namespace TestChat
 
         private void OnMessageSendedHandler(string text)
         {
-            var newMessage = new MessageModel("avatarPath", text, _myNickname, DateTime.Now, Guid.NewGuid().ToString(), _myID);
+            var newMessage = new MessageModel("avatarPath", text, _myNickname, DateTime.Now.ToString(), Guid.NewGuid().ToString(), _myID);
             _chatService.AddNewMessage(newMessage);
             
         }

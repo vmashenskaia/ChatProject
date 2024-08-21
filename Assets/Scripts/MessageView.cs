@@ -35,7 +35,7 @@ namespace TestChat
             _avatar.sprite = Resources.Load<Sprite>(messageModel.AvatarPath);
             _messageLabel.text = messageModel.Message;
             _nicknameLabel.text = messageModel.Nickname;
-            _timeLabel.text = messageModel.Time.ToShortDateString();
+            _timeLabel.text = messageModel.Time;
             _messageModel = messageModel;
             ToggleDeleteMode(isActiveDeleteMode);
         }
