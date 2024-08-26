@@ -1,7 +1,10 @@
 using System;
+using DG.Tweening;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace TestChat
 {
@@ -29,6 +32,7 @@ namespace TestChat
         {
             _deleteButton.onClick.RemoveListener(OnDeleteMessageHandler);
         }
+        
 
         public void ApplyMessage(MessageModel messageModel, bool isActiveDeleteMode)
         {
@@ -38,6 +42,14 @@ namespace TestChat
             _timeLabel.text = messageModel.Time;
             _messageModel = messageModel;
             ToggleDeleteMode(isActiveDeleteMode);
+            var cv = this.AddComponent<CanvasGroup>();
+            cv.alpha = 0;
+            cv.DOFade(1, (float) 0.5).OnComplete(() =>
+            {
+                var canvasGroup = GetComponent<CanvasGroup>();
+                if (canvasGroup != null)
+                    Destroy(canvasGroup);
+            });
         }
 
         public void ToggleDeleteMode(bool active)

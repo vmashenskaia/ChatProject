@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!49 &4900000
+TextAsset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: messages
+  m_Script: '{"messages":[{"MessageID":"1","Nickname":"Pika","Message":"Hello","Time":"08/18/2018
+    07:22:16","Avatar":"pika","UserID":"11111"},{"MessageID":"2","Nickname":"pika","Message":"How
+    are you?","Time":"08/18/2018 07:22:16","Avatar":"pika","UserID":"11111"},{"MessageID":"3","Nickname":"greypika","Message":"Where
+    are you from?","Time":"08/18/2018 07:22:16","Avatar":"greypika","UserID":"11111"},{"MessageID":"4","Nickname":"greypika","Message":"I''m
+    fine","Time":"08/18/2018 07:22:16","Avatar":"greypika","UserID":"11111"},{"MessageID":"5","Nickname":"pinkpika","Message":"OK","Time":"08/18/2018
+    07:22:16","Avatar":"pinkpika","UserID":"11111"},{"MessageID":"6","Nickname":"pinkpika","Message":"See
+    you later","Time":"08/18/2018 07:22:16","Avatar":"pinkpika","UserID":"11111"},{"MessageID":"7","Nickname":"pinkpika","Message":"I
+    want weekends","Time":"08/18/2018 07:22:16","Avatar":"pinkpika","UserID":"11111"}]}'

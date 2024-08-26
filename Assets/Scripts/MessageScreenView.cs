@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using Button = UnityEngine.UI.Button;
+using DG.Tweening;
 
 namespace TestChat
 {
@@ -21,11 +21,17 @@ namespace TestChat
         private MessageView _answerMessageViewPrefab;
         [SerializeField]
         private Transform _content;
+        [SerializeField]
+        private GameObject _normalPanel;
+        [SerializeField]
+        private GameObject _deletePanel;
+        [SerializeField]
+        private Button _confirmButton;
         private bool _isDeletingMode;
         
         private readonly Dictionary<string, MessageView> _dictionaryMessageViews = new();
         
-        private string _myID = "0";//delete later
+        private string _myID = "0";
 
         public event Action<string> OnMessageSended;
         public event Action<bool> OnDeleteModeChange;
@@ -35,17 +41,23 @@ namespace TestChat
         {
             _sendButton.onClick.AddListener(OnSendButtonClickHandler);
             _deleteModeButton.onClick.AddListener(OnDeleteModeButtonHandler);
+            _confirmButton.onClick.AddListener(OnConfirmButtonHandler);
         }
 
         private void OnDisable()
         {
             _sendButton.onClick.RemoveListener(OnSendButtonClickHandler);
             _deleteModeButton.onClick.RemoveListener(OnDeleteModeButtonHandler);
+            _confirmButton.onClick.RemoveListener(OnConfirmButtonHandler);
         }
+        
 
         public void ApplyMessages(List<MessageModel> messageModels, bool isDeletingMode)
         {
             _isDeletingMode = isDeletingMode;
+            _normalPanel.SetActive(!isDeletingMode);
+            _deletePanel.SetActive(isDeletingMode);
+            
             foreach (var messageModel in messageModels)
             {
                 AddMessage(messageModel);
@@ -65,6 +77,9 @@ namespace TestChat
         public void ChangeDeleteMode(bool isDeletemode)
         {
             _isDeletingMode = isDeletemode;
+            _normalPanel.SetActive(!isDeletemode);
+            _deletePanel.SetActive(isDeletemode);
+            
             foreach (var messageView in _dictionaryMessageViews.Values)
             {
                 messageView.ToggleDeleteMode(_isDeletingMode);
@@ -87,8 +102,16 @@ namespace TestChat
 
         private void OnDeleteModeButtonHandler()
         {
+            
             OnDeleteModeChange?.Invoke(_isDeletingMode);
         }
+
+        private void OnConfirmButtonHandler()
+        {
+            OnDeleteModeChange?.Invoke(_isDeletingMode);  
+        }
+
+
 
         private void OnDeleteMessageHandler(MessageModel messageModel)
         {

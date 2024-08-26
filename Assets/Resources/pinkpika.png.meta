@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: fb0ff5a28121249fb832822b11252c67
+guid: df98ae742e9a642b8a9b40bc893817fe
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3663080640454088869
-    second: ava-anime-1_0
+      213: -6861070934391786710
+    second: pinkpika_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ava-anime-1_0
+      name: pinkpika_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 800
-        height: 800
+        width: 634
+        height: 636
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +153,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5a850e54f60e5d230800000000000000
-      internalID: 3663080640454088869
+      spriteID: a23f1d0365498c0a0800000000000000
+      internalID: -6861070934391786710
       vertices: []
       indices: 
       edges: []
@@ -162,7 +162,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -170,7 +170,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ava-anime-1_0: 3663080640454088869
+      pinkpika_0: -6861070934391786710
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

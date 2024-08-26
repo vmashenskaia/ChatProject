@@ -16,7 +16,6 @@ namespace TestChat
 
         public List<MessageModel> GetAllMessages()
         {
-                //получить из файла с историей
             return _history;
         }
 

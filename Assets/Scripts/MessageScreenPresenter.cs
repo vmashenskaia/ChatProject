@@ -12,7 +12,7 @@ namespace TestChat
         private ChatService _chatService;
         private bool _isDeletingMode;
         
-        private string _myID = "0";//delete later
+        private string _myID = "0";
         private string _myNickname = "Viktoria";
 
         public MessageScreenPresenter(ChatService chatService)
@@ -34,7 +34,7 @@ namespace TestChat
 
         private void OnMessageSendedHandler(string text)
         {
-            var newMessage = new MessageModel("avatarPath", text, _myNickname, DateTime.Now.ToString(), Guid.NewGuid().ToString(), _myID);
+            var newMessage = new MessageModel("default", text, _myNickname, DateTime.Now.ToString(), Guid.NewGuid().ToString(), _myID);
             _chatService.AddNewMessage(newMessage);
             
         }
