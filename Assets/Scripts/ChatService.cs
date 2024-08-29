@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using GoogleSpreadsheets;
+using NUnit.Framework;
 using UnityEngine;
 using Directory = UnityEngine.Windows.Directory;
 
@@ -65,6 +66,14 @@ namespace TestChat
         public void AddNewMessage(MessageModel messageModel)
         {
             _history.Add(messageModel);
+            var historyMessageInfo = ConvertModelToInfo(_history);
+            var serializedData = _dataParser.Serialize(historyMessageInfo);
+            SaveDataToLocalFile(directoryForSaveHistory, historyFileName, serializedData);
+            OnMessageAdded?.Invoke(messageModel);
+        }
+
+        public List<MessageInfo> ConvertModelToInfo(List<MessageModel> list)
+        {
             var historyMessageInfo = new List<MessageInfo>();
             foreach (var message in _history)
             {
@@ -77,9 +86,8 @@ namespace TestChat
                 messageInfo.Time = message.Time;
                 historyMessageInfo.Add(messageInfo);
             }
-            var serializedData = _dataParser.Serialize(historyMessageInfo);
-            SaveDataToLocalFile(directoryForSaveHistory, historyFileName, serializedData);
-            OnMessageAdded?.Invoke(messageModel);
+
+            return historyMessageInfo;
         }
 
         public MessageModel GetRandomAnswer()
@@ -100,6 +108,10 @@ namespace TestChat
                 return;
 
             _history.RemoveAt(index);
+            
+            var historyMessageInfo = ConvertModelToInfo(_history);
+            var serializedData = _dataParser.Serialize(historyMessageInfo);
+            SaveDataToLocalFile(directoryForSaveHistory, historyFileName, serializedData);
             OnMessageDeleted?.Invoke(messageModelID);
         }
 
