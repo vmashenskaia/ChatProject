@@ -86,7 +86,6 @@ crashlytics-build.properties
 # But keep the demo packages themselves.
 !/Assets/Plugins/Sirenix/Demos/*.unitypackage 
 
-Assets/Plugins/Demigiant/DOTweenPro/DOTweenAnimation.cs
 
 # Vscode settings
 .vscode

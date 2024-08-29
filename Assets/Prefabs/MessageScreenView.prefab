@@ -547,6 +547,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2447190056658172882}
   - component: {fileID: 3942239143792077506}
+  - component: {fileID: 8294680631925225320}
   m_Layer: 0
   m_Name: MessageScreenView
   m_TagString: Untagged
@@ -591,6 +592,22 @@ MonoBehaviour:
   _normalPanel: {fileID: 1370227202171466676}
   _deletePanel: {fileID: 5802721254758399435}
   _confirmButton: {fileID: 2490548797893586788}
+--- !u!114 &8294680631925225320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2325617376807673135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ab418ef97a74a42bebc469c91acc1ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startCapacity: 10
+  _myMessagesPrefab: {fileID: 2143804486023100865, guid: 443e149b24a634bb68cdb69b65466582, type: 3}
+  _answerMessagesPrefab: {fileID: 6729326545273864249, guid: d928554d082544699b7f0d31d28d5973, type: 3}
+  _content: {fileID: 2585143979121556138}
 --- !u!1 &3043880486967551127
 GameObject:
   m_ObjectHideFlags: 0

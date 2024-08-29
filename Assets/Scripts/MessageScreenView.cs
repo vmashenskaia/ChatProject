@@ -20,18 +20,19 @@ namespace TestChat
         [SerializeField]
         private MessageView _answerMessageViewPrefab;
         [SerializeField]
-        private Transform _content;
-        [SerializeField]
         private GameObject _normalPanel;
         [SerializeField]
         private GameObject _deletePanel;
         [SerializeField]
         private Button _confirmButton;
+        [SerializeField]
+        private Transform _content;
         private bool _isDeletingMode;
+        private MessageViewPool _messageViewPool;
         
         private readonly Dictionary<string, MessageView> _dictionaryMessageViews = new();
         
-        private string _myID = "0";
+        private const string myID = "0";
 
         public event Action<string> OnMessageSended;
         public event Action<bool> OnDeleteModeChange;
@@ -42,6 +43,8 @@ namespace TestChat
             _sendButton.onClick.AddListener(OnSendButtonClickHandler);
             _deleteModeButton.onClick.AddListener(OnDeleteModeButtonHandler);
             _confirmButton.onClick.AddListener(OnConfirmButtonHandler);
+
+            _messageViewPool = GetComponent<MessageViewPool>();
         }
 
         private void OnDisable()
@@ -68,8 +71,11 @@ namespace TestChat
         public void AddMessage(MessageModel messageModel)
         {
             MessageView view;
-            view = Instantiate(messageModel.UserID == _myID ? _messageViewPrefab : _answerMessageViewPrefab, _content);
-            view.ApplyMessage(messageModel, _isDeletingMode);
+            if (messageModel.UserModel.UserID == myID)
+                view = _messageViewPool.SpawnMyMessage(messageModel, _isDeletingMode);
+            else
+                view = _messageViewPool.SpawnAnswerMessage(messageModel, _isDeletingMode);
+            
             _dictionaryMessageViews.Add(messageModel.MessageID, view);
             view.OnDeleteMessage += OnDeleteMessageHandler;
         }
@@ -90,7 +96,11 @@ namespace TestChat
         {
             var messageView = _dictionaryMessageViews[messageID];
             messageView.OnDeleteMessage -= OnDeleteMessageHandler;
-            Destroy(messageView.gameObject);
+            if (messageView.GetUserID() == myID)
+                _messageViewPool.DespawnMyMessage(messageView);
+            else
+                _messageViewPool.DespawnAnswerMessage(messageView);
+
             _dictionaryMessageViews.Remove(messageID);
         }
 

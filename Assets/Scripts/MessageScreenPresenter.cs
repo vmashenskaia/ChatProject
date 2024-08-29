@@ -12,17 +12,18 @@ namespace TestChat
         private ChatService _chatService;
         private bool _isDeletingMode;
         
-        private string _myID = "0";
-        private string _myNickname = "Viktoria";
+        private const string myID = "0";
+        private const string myNickname = "Viktoria";
+        private const string myAvatarPath = "default";
 
-        public MessageScreenPresenter(ChatService chatService)
+        public MessageScreenPresenter(ChatService chatService, MessageScreenView view)
         {
             _chatService = chatService;
+            _view = view;
         }
 
         public void LoadAndShowWindow(List<MessageModel> messages)
         {
-            _view = GameObject.FindFirstObjectByType<MessageScreenView>();
             _view.ApplyMessages(messages, false);
             _view.OnMessageSended += OnMessageSendedHandler;
             _chatService.OnMessageAdded += OnMessageAddedHandler;
@@ -34,7 +35,7 @@ namespace TestChat
 
         private void OnMessageSendedHandler(string text)
         {
-            var newMessage = new MessageModel("default", text, _myNickname, DateTime.Now.ToString(), Guid.NewGuid().ToString(), _myID);
+            var newMessage = new MessageModel(myAvatarPath, text, myNickname, DateTime.Now.ToString(), Guid.NewGuid().ToString(), myID);
             _chatService.AddNewMessage(newMessage);
             
         }

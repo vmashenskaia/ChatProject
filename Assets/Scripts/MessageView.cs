@@ -20,6 +20,7 @@ namespace TestChat
         private TMP_Text _nicknameLabel;
         [SerializeField]
         private TMP_Text _timeLabel;
+        
         public event Action<MessageModel> OnDeleteMessage;
         private MessageModel _messageModel;
 
@@ -36,9 +37,9 @@ namespace TestChat
 
         public void ApplyMessage(MessageModel messageModel, bool isActiveDeleteMode)
         {
-            _avatar.sprite = Resources.Load<Sprite>(messageModel.AvatarPath);
+            _avatar.sprite = Resources.Load<Sprite>(messageModel.UserModel.AvatarPath);
             _messageLabel.text = messageModel.Message;
-            _nicknameLabel.text = messageModel.Nickname;
+            _nicknameLabel.text = messageModel.UserModel.Nikname;
             _timeLabel.text = messageModel.Time;
             _messageModel = messageModel;
             ToggleDeleteMode(isActiveDeleteMode);
@@ -55,6 +56,11 @@ namespace TestChat
         public void ToggleDeleteMode(bool active)
         {
             _deleteButton.gameObject.SetActive(active);
+        }
+
+        public string GetUserID()
+        {
+            return _messageModel.UserModel.UserID;
         }
 
         private void OnDeleteMessageHandler()

@@ -14,6 +14,8 @@ namespace TestChat.Editor
         private Vector2 _scrollPosition;
         private List<SerializedObject> _objs;
         
+        private const string resourcesPath = "Assets/Resources/messages.asset";
+        
         private List<MessageInfo> _messageInfos;
         
         [MenuItem("ChatProject/Message Editor")]
@@ -27,7 +29,7 @@ namespace TestChat.Editor
             if (_messageInfos == null)
             {
                 var chatService = new ChatService();
-                _messageInfos = chatService.LoadMessages();
+                _messageInfos = chatService.LoadDataFromResources();
             }
 
             _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
@@ -62,8 +64,16 @@ namespace TestChat.Editor
                 chatContent.messages = _messageInfos;
                 var jisonForSaving = JsonConvert.SerializeObject(chatContent);
                 var asset = new TextAsset(jisonForSaving);
-                AssetDatabase.CreateAsset(asset, "Assets/Resources/messages.asset");
+                AssetDatabase.CreateAsset(asset, resourcesPath);
                 AssetDatabase.SaveAssets();
+            }
+            
+            GUILayout.Space(20);
+            if (GUILayout.Button("DeleteHistory"))
+            {
+                var chatServise = new ChatService();
+                var path = chatServise.GetHistoryPath();
+                chatServise.DeleteHistory(path);
             }
         }
         private void ShowMessage(MessageInfo messageInfo)

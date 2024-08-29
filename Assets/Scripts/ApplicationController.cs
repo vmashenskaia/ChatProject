@@ -9,10 +9,13 @@ namespace TestChat
 {
     public class ApplicationController: MonoBehaviour
     {
-        private List<MessageModel> _messageModels = new();
-        private ChatService _chatService = new();
+        [SerializeField]
+        private MessageScreenView _view;
+        private List<MessageModel> _messageModels;
+        private ChatService _chatService;
+        private MessageScreenPresenter _messageScreenPresenter;
         
-        private string _myID = "0";//delete later
+        private const string myID = "0";
 
         private void OnEnable()
         {
@@ -24,18 +27,30 @@ namespace TestChat
             _chatService.OnMessageAdded -= OnMessageAddedHandler;
         }
 
+        private void Awake()
+        {
+            ScreenInitialization();
+            _chatService.ImportMessages();
+            _chatService.ImportAnswers();
+        }
+
         private void Start()
         {
-            _chatService.ImportMessages();
             _messageModels = _chatService.GetAllMessages();
-            var presenter = new MessageScreenPresenter(_chatService);
-            presenter.LoadAndShowWindow(_messageModels);
+            _messageScreenPresenter.LoadAndShowWindow(_messageModels);
+        }
+
+        private void ScreenInitialization()
+        {
+            _messageModels = new();
+            _chatService = new();
+            _messageScreenPresenter = new MessageScreenPresenter(_chatService, _view);
         }
 
 
         private void OnMessageAddedHandler(MessageModel messageModel)
         {
-            if (messageModel.UserID == _myID)
+            if (messageModel.UserModel.UserID == myID)
                 AddMessage(destroyCancellationToken).Forget();
         }
 
